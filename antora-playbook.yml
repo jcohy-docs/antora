@@ -1,41 +1,25 @@
-antora:
-  extensions:
-    # - '@springio/antora-extensions/partial-build-extension'
-    # - require: '@springio/antora-extensions/latest-version-extension'
-    - require: '@springio/antora-extensions/inject-collector-cache-config-extension'
-    - '@antora/collector-extension'
-    - '@antora/atlas-extension'
-    - require: '@springio/antora-extensions/root-component-extension'
-      root_component_name: 'graphql'
 site:
-  title: Spring GraphQL
-  url: https://rwinch.github.io/spring-graphql
-  robots: allow
-git:
-  ensure_git_suffix: false
+  title: Antora Demo Site
+  # the 404 page and sitemap files only get generated when the url property is set
+  url: https://antora.gitlab.io/demo/docs-site
+  start_page: component-b::index.adoc
 content:
   sources:
-    - url: ./..
-      branches: HEAD
-      start_path: spring-graphql-docs
-      worktrees: true
+  - url: https://gitlab.com/antora/demo/demo-component-a.git
+    branches: HEAD
+    # setting edit_url to false disables the Edit this Page link for any page that originates from this repository
+    # the same thing can be achieved by adding empty credentials (i.e., @) in front of the domain in the URL
+    edit_url: false
+  - url: https://gitlab.com/antora/demo/demo-component-b.git
+    branches: [main, v2.0, v1.0]
+    start_path: docs
 asciidoc:
   attributes:
-    page-stackoverflow-url: https://stackoverflow.com/tags/spring-graphql
+    experimental: ''
+    idprefix: ''
+    idseparator: '-'
     page-pagination: ''
-    hide-uri-scheme: '@'
-    tabs-sync-option: '@'
-  extensions:
-    - '@asciidoctor/tabs'
-    - '@springio/asciidoctor-extensions'
-urls:
-  latest_version_segment_strategy: redirect:to
-  latest_version_segment: ''
-  redirect_facility: httpd
 ui:
   bundle:
-    url: https://github.com/spring-io/antora-ui-spring/releases/download/v0.3.3/ui-bundle.zip
+    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
     snapshot: true
-runtime:
-  log:
-    failure_level: warn
